@@ -25,6 +25,10 @@ export default function NotesClient() {
   const [debouncedSearch] = useDebounce(search, 500);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+useEffect(() => {
+  setCurrentPage(1);
+}, [debouncedSearch]);
+
   const { data, isLoading, error } = useQuery<FetchNotesResponse, Error>({
     queryKey: ["notes", currentPage, debouncedSearch],
     queryFn: () =>

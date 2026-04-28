@@ -8,6 +8,14 @@ interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = ({ children, onClose }) => {
+  useEffect(() => {
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalStyle;
+    };
+  }, []);
+
   const handleEsc = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -40,4 +48,5 @@ export const Modal: React.FC<ModalProps> = ({ children, onClose }) => {
     document.body
   );
 };
+
 export default Modal;
